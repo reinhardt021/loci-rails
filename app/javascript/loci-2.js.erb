@@ -105,11 +105,17 @@ function addSkybox(scene) {
     // IMAGE
     const fileUrls = [
       // right & left
-      "<%= asset_path('px.jpg') %>", "<%= asset_path('nx.jpg')%>",
+      //"/assets/images/textures/skybox/px.jpg"
+      //"<%= asset_path('assets/images/textures/skybox/px.jpg')%>",
+      "<%= asset_path('textures/skybox/px.jpg')%>",
+      "<%= asset_path('textures/skybox/nx.jpg')%>",
       // top & bottom
-      "<%= asset_path('py.jpg') %>", "<%= asset_path('ny.jpg')%>",
+      "<%= asset_path('textures/skybox/py.jpg')%>",
+      "<%= asset_path('textures/skybox/ny.jpg')%>",
       // back & front
-      "<%= asset_path('pz.jpg') %>", "<%= asset_path('nz.jpg')%>",
+      "<%= asset_path('textures/skybox/pz.jpg')%>",
+      "<%= asset_path('textures/skybox/nz.jpg')%>",
+      //"<%= asset_path('/images/textures/skybox/nz.jpg')%>",
     ];
     //scene.add( makeSkybox(fileUrls, 8000) );
     scene.background = new THREE.CubeTextureLoader()
