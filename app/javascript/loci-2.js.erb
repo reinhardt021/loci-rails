@@ -93,7 +93,6 @@ function addLights(scene) {
 
 function addSkybox(scene) {
     // DEFAULT
-    //const size = 10000; // length, width, and height
     const size = 8000; // length, width, and height
     const color = 0xB4CDCD;
 
@@ -102,10 +101,9 @@ function addSkybox(scene) {
     <%#const skybox = new THREE.Mesh(box, material);%>
     <%#scene.add(skybox);%>
 
-    // IMAGE
+    // IMAGES
     const fileUrls = [
       // right & left
-      // image_path == asset_path // asset_data_uri does base64
       "<%= asset_path('textures/skybox/px.jpg')%>",
       "<%= asset_path('textures/skybox/nx.jpg')%>",
       // top & bottom
@@ -115,24 +113,7 @@ function addSkybox(scene) {
       "<%= asset_path('textures/skybox/pz.jpg')%>",
       "<%= asset_path('textures/skybox/nz.jpg')%>",
     ];
-    //scene.add( makeSkybox(fileUrls, 8000) );
     scene.background = new THREE.CubeTextureLoader().load(fileUrls)
-    //const cubemap = THREE.ImageUtils.loadTextureCube(urls);
-    //cubemap.format = THREE.RGBFormat;
-
-    //const skyboxShader = THREE.ShaderLib['cube'];
-    //skyboxShader.uniforms['tCube'].value = cubemap;
-
-    //const box2 = new THREE.BoxGeometry(size, size, size);
-    //const material2 = new THREE.ShaderMaterial({
-        //fragmentShader : skyboxShader.fragmentShader,
-        //vertexShader : skyboxShader.vertexShader,
-        //uniforms : skyboxShader.uniforms,
-        //depthWrite : false,
-        //side : THREE.BackSide
-    //})
-    //const skybox2 = new THREE.Mesh(box2, material2);
-    //scene.add(skybox);
 }
 
 function addGrid(scene) {
@@ -176,9 +157,6 @@ function handleControlUpdates(camera, renderer) {
     controls.staticMoving = true;
     //controls.dynamicDampingFactor = 0.3; // only needed if staticMoving = false
     controls.keys = [65, 83, 68];
-  // don't need these either now 
-    <%#const onControlInputs = () => console.log('controlling')%>
-    <%#controls.addEventListener('change', onControlInputs);%>
 
     return controls;
 }
@@ -191,7 +169,6 @@ function handleWindowResize(camera, renderer, controls) {
         camera.updateProjectionMatrix();
         renderer.setSize(WIDTH, HEIGHT);
         controls.handleResize();
-        <%#renderer.render(scene, camera);%> // not needed either
     }
     window.addEventListener('resize', onWindowResize, false);
 }
@@ -214,8 +191,6 @@ function init() {
 
     const controls = handleControlUpdates(camera, renderer);
     handleWindowResize(camera, renderer, controls);
-
-    <%#renderer.render(scene, camera); // render the scene%> // not needed
 
     return {
         controls,
