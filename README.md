@@ -1,4 +1,4 @@
-# CLOUD-BOX
+# LOCI
 
 recreating experiment for threeJS
 
