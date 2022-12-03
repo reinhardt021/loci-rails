@@ -36,4 +36,5 @@
 
 vendor*
 Session.vim
+*.DS_STORE
 
