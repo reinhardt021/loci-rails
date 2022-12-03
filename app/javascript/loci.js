@@ -2,6 +2,11 @@ import $ from 'jquery'
 import * as THREE from 'three'
 import { TrackballControls } from 'three/addons/controls/TrackballControls.js'
 
+const itemCount = {
+    sphere: 0,
+    cube: 0
+};
+
 function setupCamera() {
     // set scene size
     const WIDTH = window.innerWidth; // var WIDTH = 400;
@@ -23,26 +28,25 @@ function setupCamera() {
     return camera;
 }
 
-let cubeCount = 1;
 function addCube(scene, vector, color, dimensions) {
     if (!color) color = 0xFFCC00;
     if (!dimensions) dimensions = {l: 50, w: 50, h: 50};
+    itemCount.cube += 1;
 
-    var cube = new THREE.Mesh(
+    const cube = new THREE.Mesh(
       new THREE.BoxGeometry(dimensions.l, dimensions.w, dimensions.h),
       new THREE.MeshLambertMaterial({ color: color })
     );
     cube.position.set(vector.x, vector.y, vector.z);
-    cube.name = 'cube'+cubeCount;
-    cubeCount += 1;
+    cube.name = 'cube' + itemCount.cube;
 
     scene.add(cube);
 }
 
 
-let sphereCount = 1;
 function addSphere(scene, vector, color) {
     if (!color) color = 0xCCFF00;
+    itemCount.sphere += 1;
 
     const radius = 50;
     const segments = 60;
@@ -54,8 +58,7 @@ function addSphere(scene, vector, color) {
     sphere.position.set(vector.x, vector.y, vector.z);
     sphere.updateMatrix();
     sphere.matrixAutoUpdate = false;
-    sphere.name = 'sphere'+sphereCount;
-    sphereCount += 1;
+    sphere.name = 'sphere' + itemCount.sphere;
 
     scene.add(sphere);
 }
