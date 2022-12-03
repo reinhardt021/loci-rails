@@ -105,15 +105,15 @@ function addSkybox(scene) {
     // IMAGE
     const fileUrls = [
       // right & left
-      // image_path exact same output as asset_path
-      "<%= asset_data_uri('textures/skybox/px.jpg')%>",
-      "<%= asset_data_uri('textures/skybox/nx.jpg')%>",
+      // image_path == asset_path // asset_data_uri does base64
+      "<%= asset_path('textures/skybox/px.jpg')%>",
+      "<%= asset_path('textures/skybox/nx.jpg')%>",
       // top & bottom
-      "<%= asset_data_uri('textures/skybox/py.jpg')%>",
-      "<%= asset_data_uri('textures/skybox/ny.jpg')%>",
+      "<%= asset_path('textures/skybox/py.jpg')%>",
+      "<%= asset_path('textures/skybox/ny.jpg')%>",
       // back & front
-      "<%= asset_data_uri('textures/skybox/pz.jpg')%>",
-      "<%= asset_data_uri('textures/skybox/nz.jpg')%>",
+      "<%= asset_path('textures/skybox/pz.jpg')%>",
+      "<%= asset_path('textures/skybox/nz.jpg')%>",
     ];
     //scene.add( makeSkybox(fileUrls, 8000) );
     scene.background = new THREE.CubeTextureLoader().load(fileUrls)
@@ -159,24 +159,11 @@ function addGrid(scene) {
 
 function createRenderer() {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0xdddddd, 1); // just to see the shapes better for now
+    <%#renderer.setClearColor(0xdddddd, 1); // just to see the shapes better for now%>
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     return renderer;
-}
-
-function handleWindowResize(scene, camera, renderer, controls) {
-    const onWindowResize = () => {
-        const WIDTH = window.innerWidth;
-        const HEIGHT = window.innerHeight;
-        camera.aspect = WIDTH / HEIGHT;
-        camera.updateProjectionMatrix();
-        renderer.setSize(WIDTH, HEIGHT);
-        controls.handleResize();
-        renderer.render(scene, camera);
-    }
-    window.addEventListener('resize', onWindowResize, false);
 }
 
 function handleControlUpdates(scene, camera, renderer) {
@@ -193,6 +180,19 @@ function handleControlUpdates(scene, camera, renderer) {
     controls.addEventListener('change', onControlInputs);
 
     return controls;
+}
+
+function handleWindowResize(scene, camera, renderer, controls) {
+    const onWindowResize = () => {
+        const WIDTH = window.innerWidth;
+        const HEIGHT = window.innerHeight;
+        camera.aspect = WIDTH / HEIGHT;
+        camera.updateProjectionMatrix();
+        renderer.setSize(WIDTH, HEIGHT);
+        controls.handleResize();
+        renderer.render(scene, camera);
+    }
+    window.addEventListener('resize', onWindowResize, false);
 }
 
 function init() {
