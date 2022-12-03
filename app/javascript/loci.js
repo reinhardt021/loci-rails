@@ -49,7 +49,7 @@ function addSphere(scene, vector, color) {
     const rings = 16;
     const sphere = new THREE.Mesh(
       new THREE.SphereGeometry(radius, segments, rings),
-      new THREE.MeshPhongMaterial({ color: color })
+      new THREE.MeshPhongMaterial({ color })
     );
     sphere.position.set(vector.x, vector.y, vector.z);
     sphere.updateMatrix();
@@ -89,10 +89,13 @@ function addLights(scene) {
 }
 
 function addSkybox(scene) {
-    // skybox
-    const skyboxGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
-    const skyboxMaterial = new THREE.MeshBasicMaterial({ color: 0xB4CDCD, side: THREE.BackSide });
-    const skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
+    const length = 10000;
+    const width = 10000;
+    const height = 10000;
+    const color = 0xB4CDCD;
+    const box = new THREE.BoxGeometry(length, width, height);
+    const material = new THREE.MeshBasicMaterial({ color, side: THREE.BackSide });
+    const skybox = new THREE.Mesh(box, material);
     scene.add(skybox);
 }
 
@@ -100,7 +103,10 @@ function addGrid(scene) {
     // creates the grid
     const size = 500;
     const step = 50;
-    const gridMaterial = new THREE.LineBasicMaterial({ color: 0x000000, opacity: 0.2, transparent: true });
+    const color = 0x000000;
+    const opacity = 0.2;
+    const transparent = true;
+    const gridMaterial = new THREE.LineBasicMaterial({ color, opacity, transparent });
 
     const points = []
     for (let i = -size; i <= size; i += step) {
