@@ -1,24 +1,26 @@
 # LOCI
 
-recreating experiment for threeJS
+Recreating experiment for threeJS but with Rails framework this time
 
-Things you may want to cover:
+---
 
-* Ruby version
+## GETTING STARTED
 
-* System dependencies
+- System dependencies:
+    - Ruby version: 3.0.0
+    - Rails version: 7.0.4
 
-* Configuration
+- Configuration
 
-* Database creation
+- Database creation: n/a
+- Database initialization: n/a
 
-* Database initialization
+- How to run the test suite: n/a
 
-* How to run the test suite
+- Services (job queues, cache servers, search engines, etc.)
 
-* Services (job queues, cache servers, search engines, etc.)
-* Deployment instructions
-    * install dependencies: `bundle install`
-    * run the server: `rails s`
+- Deployment instructions
+    - install dependencies: `bundle install`
+    - run the server: `rails s`
+    - visit in browser: http://localhost:3000/
 
-* ...
