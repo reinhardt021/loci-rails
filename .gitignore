@@ -35,3 +35,6 @@
 /config/master.key
 
 vendor*
+Session.vim
+*.DS_STORE
+
