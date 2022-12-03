@@ -176,7 +176,8 @@ function handleControlUpdates(scene, camera, renderer) {
     controls.staticMoving = true;
     //controls.dynamicDampingFactor = 0.3; // only needed if staticMoving = false
     controls.keys = [65, 83, 68];
-    const onControlInputs = () => renderer.render(scene, camera)
+    const onControlInputs = () => console.log('controlling')
+    <%#const onControlInputs = () => renderer.render(scene, camera)%> // not needed either anymore
     controls.addEventListener('change', onControlInputs);
 
     return controls;
@@ -190,7 +191,7 @@ function handleWindowResize(scene, camera, renderer, controls) {
         camera.updateProjectionMatrix();
         renderer.setSize(WIDTH, HEIGHT);
         controls.handleResize();
-        renderer.render(scene, camera);
+        <%#renderer.render(scene, camera);%> // not needed either
     }
     window.addEventListener('resize', onWindowResize, false);
 }
@@ -214,17 +215,26 @@ function init() {
     const controls = handleControlUpdates(scene, camera, renderer);
     handleWindowResize(scene, camera, renderer, controls);
 
-    renderer.render(scene, camera); // render the scene
+    <%#renderer.render(scene, camera); // render the scene%> // not needed
 
-    return controls;
+    return {
+        controls,
+        renderer,
+        scene,
+        camera,
+    };
 }
 
-function animate(controls) {
+function animate(controls, renderer, scene, camera) {
     // recursion needed to animate the page on control updates
-    window.requestAnimationFrame(() => animate(controls));
+    const callback = () => animate(controls, renderer, scene, camera);
+    window.requestAnimationFrame(callback);
     controls.update();
+
+    // need this to render the scene on page load
+    renderer.render(scene, camera);
 }
 
 
-const controls = init();
-animate(controls);
+const { controls, renderer, scene, camera } = init();
+animate(controls, renderer, scene, camera);
