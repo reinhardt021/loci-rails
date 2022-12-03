@@ -92,14 +92,45 @@ function addLights(scene) {
 }
 
 function addSkybox(scene) {
-    const length = 10000;
-    const width = 10000;
-    const height = 10000;
+    // DEFAULT
+    //const size = 10000; // length, width, and height
+    const size = 8000; // length, width, and height
     const color = 0xB4CDCD;
-    const box = new THREE.BoxGeometry(length, width, height);
+
+    const box = new THREE.BoxGeometry(size, size, size);
     const material = new THREE.MeshBasicMaterial({ color, side: THREE.BackSide });
     const skybox = new THREE.Mesh(box, material);
     scene.add(skybox);
+
+    // IMAGE
+    const fileUrls = [
+      // right & left
+      "<%= asset_path('px.jpg') %>", "<%= asset_path('nx.jpg')%>",
+      // top & bottom
+      "<%= asset_path('py.jpg') %>", "<%= asset_path('ny.jpg')%>",
+      // back & front
+      "<%= asset_path('pz.jpg') %>", "<%= asset_path('nz.jpg')%>",
+    ];
+    //scene.add( makeSkybox(fileUrls, 8000) );
+    scene.background = new THREE.CubeTextureLoader()
+        <%#.setPath('/images/texure/cube/skybox')%>
+        .load(fileUrls)
+    //const cubemap = THREE.ImageUtils.loadTextureCube(urls);
+    //cubemap.format = THREE.RGBFormat;
+
+    //const skyboxShader = THREE.ShaderLib['cube'];
+    //skyboxShader.uniforms['tCube'].value = cubemap;
+
+    //const box2 = new THREE.BoxGeometry(size, size, size);
+    //const material2 = new THREE.ShaderMaterial({
+        //fragmentShader : skyboxShader.fragmentShader,
+        //vertexShader : skyboxShader.vertexShader,
+        //uniforms : skyboxShader.uniforms,
+        //depthWrite : false,
+        //side : THREE.BackSide
+    //})
+    //const skybox2 = new THREE.Mesh(box2, material2);
+    //scene.add(skybox);
 }
 
 function addGrid(scene) {
