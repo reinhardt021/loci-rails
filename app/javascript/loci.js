@@ -23,6 +23,44 @@ function setupCamera() {
     return camera;
 }
 
+let cubeCount = 1;
+function addCube(scene, vector, color, dimensions) {
+    if (!color) color = 0xFFCC00;
+    if (!dimensions) dimensions = {l: 50, w: 50, h: 50};
+
+    var cube = new THREE.Mesh(
+      new THREE.BoxGeometry(dimensions.l, dimensions.w, dimensions.h),
+      new THREE.MeshLambertMaterial({ color: color })
+    );
+    cube.position.set(vector.x, vector.y, vector.z);
+    cube.name = 'cube'+cubeCount;
+    cubeCount += 1;
+
+    scene.add(cube);
+}
+
+
+let sphereCount = 1;
+function addSphere(scene, vector, color) {
+    if (!color) color = 0xCCFF00;
+
+    const radius = 50;
+    const segments = 60;
+    const rings = 16;
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(radius, segments, rings),
+      new THREE.MeshPhongMaterial({ color: color })
+    );
+    sphere.position.set(vector.x, vector.y, vector.z);
+    sphere.updateMatrix();
+    sphere.matrixAutoUpdate = false;
+    sphere.name = 'sphere'+sphereCount;
+    sphereCount += 1;
+
+    scene.add(sphere);
+}
+
+
 function addSkybox(scene) {
     // skybox
     const skyboxGeometry = new THREE.BoxGeometry(10000, 10000, 10000);
@@ -65,9 +103,30 @@ function init() {
     const camera = setupCamera();
     const scene = new THREE.Scene(); // 3D world
 
+    const sphere = addSphere(scene, {x:100, y:100, z:100}, 0xCC0000);
+    const cube = addCube(scene, {x:-100,y:-100,z:-100}, 0x00FF00, {l:50,w:50,h:50});
+    const cubeX = addCube(scene, {x:-200,y:-200,z:-200}, 0x00FF00, {l:50,w:50,h:50});
+
+    const cubeTR = addCube(scene, {x:500,z:500,y:0}, 0x0000FF, {l:50,w:50,h:50});
+    const cubeBR = addCube(scene, {x:500,z:-500,y:0}, 0x0000FF, {l:50,w:50,h:50});
+    const cubeBL = addCube(scene, {x:-500,z:-500,y:0}, 0x0000FF, {l:50,w:50,h:50});
+    const cubeTL = addCube(scene, {x:-500,z:500,y:0}, 0x0000FF, {l:50,w:50,h:50});
+
+
+    // light from the left of initial camera
     //const pointLight = new THREE.PointLight(0xFFFF00);
     //pointLight.position.set(-7000, 7000, 7000);
     //scene.add(pointLight);
+
+    // light from above of initial camera
+     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+     directionalLight.position.set(0, 1, 0);
+     scene.add(directionalLight);
+
+    // some light on bottom of initial camera
+    const ambientLight = new THREE.AmbientLight(0x222222);
+    scene.add(ambientLight);
+
 
     addSkybox(scene);
     addGrid(scene);
