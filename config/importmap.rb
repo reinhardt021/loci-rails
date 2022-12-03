@@ -7,4 +7,6 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "loci"
 pin "jquery" # @3.6.1
-pin "three" # @0.147.0
+#pin "three" # @0.147.0
+pin "three", to: "https://unpkg.com/three@0.147.0/build/three.module.js"
+pin "three/addons/", to: "https://unpkg.com/three@0.147.0/examples/jsm/"

@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import * as THREE from 'three'
 // should include requestAnimationFrame()
+import { TrackballControls } from 'three/addons/controls/TrackballControls.js'
+//import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js'
 
 function setupCamera() {
     // set scene size
@@ -145,6 +147,20 @@ function init() {
         renderer.render(scene, camera);
     }
     window.addEventListener('resize', onWindowResize, false);      
+    const controls = new TrackballControls(camera, renderer.domElement);
+    controls.rotateSpeed = 1.0;
+    controls.zoomSpeed = 1.2;
+    controls.panSpeed = 0.8;
+    controls.noZoom = false;
+    controls.noPan = false;
+    controls.staticMoving = true;
+    controls.dynamicDampingFactor = 0.3;
+    controls.keys = [65, 83, 68];
+    const onControlInputs = () => {
+        renderer.render(scene, camera)
+    }
+    controls.addEventListener('change', onControlInputs);
+
     renderer.render(scene, camera); // render the scene
 
 }
