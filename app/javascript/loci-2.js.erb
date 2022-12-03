@@ -166,7 +166,7 @@ function createRenderer() {
     return renderer;
 }
 
-function handleControlUpdates(scene, camera, renderer) {
+function handleControlUpdates(camera, renderer) {
     const controls = new TrackballControls(camera, renderer.domElement);
     controls.rotateSpeed = 1.0;
     controls.zoomSpeed = 5.2;
@@ -176,14 +176,14 @@ function handleControlUpdates(scene, camera, renderer) {
     controls.staticMoving = true;
     //controls.dynamicDampingFactor = 0.3; // only needed if staticMoving = false
     controls.keys = [65, 83, 68];
-    const onControlInputs = () => console.log('controlling')
-    <%#const onControlInputs = () => renderer.render(scene, camera)%> // not needed either anymore
-    controls.addEventListener('change', onControlInputs);
+  // don't need these either now 
+    <%#const onControlInputs = () => console.log('controlling')%>
+    <%#controls.addEventListener('change', onControlInputs);%>
 
     return controls;
 }
 
-function handleWindowResize(scene, camera, renderer, controls) {
+function handleWindowResize(camera, renderer, controls) {
     const onWindowResize = () => {
         const WIDTH = window.innerWidth;
         const HEIGHT = window.innerHeight;
@@ -212,8 +212,8 @@ function init() {
     // note this needs to be before handleControlUpdates()
     $('.container').append(renderer.domElement);
 
-    const controls = handleControlUpdates(scene, camera, renderer);
-    handleWindowResize(scene, camera, renderer, controls);
+    const controls = handleControlUpdates(camera, renderer);
+    handleWindowResize(camera, renderer, controls);
 
     <%#renderer.render(scene, camera); // render the scene%> // not needed
 
