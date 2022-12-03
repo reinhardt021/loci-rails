@@ -24,3 +24,7 @@ Recreating experiment for threeJS but with Rails framework this time
     - run the server: `rails s`
     - visit in browser: http://localhost:3000/
 
+---
+
+![Loci Screenshot](/app/assets/images/Screenshot-loci.png)
+
